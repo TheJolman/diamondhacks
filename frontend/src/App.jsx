@@ -1,13 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    fetch('http://localhost:8000/')
+    .then(response => response.json())
+    .then(data => setMessage(data.message))
+    .catch(error => console.error('Error fetching data:', error))
+  }, [])
 
   return (
     <>
+      <h2>Message from backend: {message}</h2>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
