@@ -19,5 +19,5 @@ app.add_middleware(
 )
 
 @app.get("/", tags=["root"])
-async def read_root() -> dict:
+async def read_root():
     return s.get_stock_data()

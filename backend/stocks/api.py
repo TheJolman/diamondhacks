@@ -3,7 +3,7 @@ import requests
 
 def get_stock_data():
 
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo'
+    url = 'https://jsonplaceholder.typicode.com/todos/1'
 
     r = requests.get(url)
     data = r.json()
