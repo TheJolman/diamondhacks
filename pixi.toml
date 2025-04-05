@@ -1,0 +1,15 @@
+[project]
+authors = ["josh <joshuaholman5@gmail.com>"]
+channels = ["conda-forge"]
+name = "diamondhacks"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = ">=3.13.2,<3.14"
+marimo = ">=0.12.4,<0.13"
+numpy = ">=2.2.4,<3"
+matplotlib = ">=3.10.1,<4"
+seaborn = ">=0.13.2,<0.14"
