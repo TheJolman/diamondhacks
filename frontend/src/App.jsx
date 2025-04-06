@@ -9,21 +9,27 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [ticker, setTicker] = useState("AAPL")
   const [inputTicker, setInputTicker] = useState("AAPL")
+  const [shouldFetch, setShouldFetch] = useState(false)
 
   useEffect(() => {
-    fetch(`http://localhost:8000/compare?ticker=${ticker}`)
-      .then(response => response.json())
-      .then(data => {
-        setComparisonData(data)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error)
-        setLoading(false)
-      })
-  }, [ticker])
+    if (shouldFetch) {
+      fetch(`http://localhost:8000/compare?ticker=${ticker}`)
+        .then(response => response.json())
+        .then(data => {
+          setComparisonData(data)
+          setLoading(false)
+          setShouldFetch(false)
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error)
+          setLoading(false)
+          setShouldFetch(false)
+        })
+      }
+  }, [ticker, shouldFetch])
 
   const handleSubmit = (e) => {
+    setShouldFetch(true)
     e.preventDefault()
     setLoading(true)
     setTicker(inputTicker)
