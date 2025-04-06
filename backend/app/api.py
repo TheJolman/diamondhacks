@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Response, status
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 import stocks as s
@@ -18,13 +19,11 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="static")
+
 @app.get("/", tags=["root"])
-async def read_root(ticker: str = "IBM"):
-    stock_data = await s.get_stock_data(ticker, "2025-04-01")
-    if stock_data:
-        return stock_data
-    else:
-        return "Error getting stock data"
+async def serve_frontend():
+    return FileResponse("frontend/index.html")
 
 @app.get("/compare", tags=["comparison"], status_code=200)
 async def compare_stocks(ticker: str = "IBM", response: Response = None):

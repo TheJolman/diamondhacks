@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     if (shouldFetch) {
-      fetch(`http://localhost:8000/compare?ticker=${ticker}`)
+      fetch(`/compare?ticker=${ticker}`)
         .then(response => response.json())
         .then(data => {
           setComparisonData(data)
