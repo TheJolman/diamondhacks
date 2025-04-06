@@ -8,7 +8,7 @@ def get_stock_data_cache(ticker, date):
     cache_name = f"Cache_{ticker}_{date}"
     if os.path.exists(cache_name):
         age = time.time()-os.path.getmtime(cache_name)
-        if age>DURATION
+        if age>DURATION:
             return null
         return json.load(cache_name)
     else:
