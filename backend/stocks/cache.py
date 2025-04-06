@@ -21,7 +21,7 @@ def set_stock_data_cache(ticker, date, data):
     
 def set_april_2nd_cache(ticker, data):
     cache_name = f"Cache_{ticker}_Tariff_Day"
-        with open(cache_name, "w") as cache:
+    with open(cache_name, "w") as cache:
         cache.write(data)
 def get_april_2nd_cache(ticker):
     cache_name = f"Cache_{ticker}_Tariff_Day"
