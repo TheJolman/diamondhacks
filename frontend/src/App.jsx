@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { Routes, Route, Link } from 'react-router-dom'
-import Stocks from './pages/stocks/Stocks';
-import Home from './pages/home/Home';
+
 function App() {
 
   const [comparisonData, setComparisonData] = useState(null)
@@ -43,17 +41,7 @@ function App() {
 
   return (
     <>
-      <div>
-        <nav>
-          <Link to="/" className='nav-link'>Home</Link>
-          <Link to="/stocks" className='nav-link'>Stocks</Link>
-        </nav>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/stocks' element={<Stocks />} />
-        </Routes>
-      </div>
-
+      <h1>Lorem Ipsum</h1>
       <div>
         <form onSubmit={handleSubmit}>
           <input
