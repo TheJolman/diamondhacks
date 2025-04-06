@@ -7,9 +7,7 @@ import asyncio
 
 dotenv.load_dotenv()
 POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY")
-
-async def get_stock_data(stocksTicker: str, date: str):
-
+async def grab_stock_data(stocksTicker: str, date: str):
     base_url = f"https://api.polygon.io/v1/open-close/{stocksTicker}/{date}"
 
     params = {
@@ -31,6 +29,21 @@ async def get_stock_data(stocksTicker: str, date: str):
         print(f"Response body does not contain valid JSON: {e}")
         print(f"Raw response text: {r.text}")
         return None
+async def get_stock_data(stocksTicker: str, date: str):
+
+    if date.equals(april_2nd_str):
+        cache = get_april_2nd_cache(stocksTicker)
+        if cache == null:
+            cache = grab_stock_data(stocksTicker, date)
+            set_april_2nd_cache(stocksTicker, cache)
+        return cache
+    else:
+        cache = get_stock_data_cache(stocksTicker, date)
+        if cache == null:
+            cache = grab_stock_data(stocksTicker, date)
+            set_stock_data_cache(stocksTicker, date, cache)
+        return cache
+        
 
 april_2nd_str = date(2025, 4, 2).strftime("%Y-%m-%d")
 yesterday_str = (date.today() - timedelta(days=2)).strftime("%Y-%m-%d")
