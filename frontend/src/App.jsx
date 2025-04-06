@@ -6,13 +6,27 @@ import Home from './pages/home/Home';
 function App() {
 
   const [stockData, setStockData] = useState(null)
+  const [comparisonData, setComparisonData] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:8000/')
+    fetch('http://localhost:8000')
       .then(response => response.json())
       .then(data => {
         setStockData(data)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error)
+        setLoading(false)
+      })
+  }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:8000/compare?ticker=AAPL')
+      .then(response => response.json())
+      .then(data => {
+        setComparisonData(data)
         setLoading(false)
       })
       .catch(error => {
@@ -25,7 +39,7 @@ function App() {
 
   return (
     <>
-    <div>
+      <div>
         <nav>
           <Link to="/" className='nav-link'>Home</Link>
           <Link to="/stocks" className='nav-link'>Stocks</Link>
@@ -34,13 +48,23 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/stocks' element={<Stocks/>}/>
         </Routes>
-        
       </div>
+
+      {/*
       <h2>Stock Data</h2>
       {stockData && (
         <pre>
           <code>
             {JSON.stringify(stockData, null, 2)}
+          </code>
+        </pre>
+      )}
+      */}
+      <h2>Stock Comparison</h2>
+      {comparisonData && (
+        <pre>
+          <code>
+            {JSON.stringify(comparisonData, null, 2)}
           </code>
         </pre>
       )}
