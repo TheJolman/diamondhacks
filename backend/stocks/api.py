@@ -5,11 +5,12 @@ import os
 dotenv.load_dotenv()
 POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY")
 
-def get_stock_data(ticker: str | None,
-                   ticker_type: str | None,
+def get_stock_data(ticker: str | None = None,
+                   ticker_type: str | None = None,
                    market: str = "stocks",
-                   date: str | None,
-                   exchange: str | None):
+                   date: str | None = None,
+                   exchange: str | None = None
+                   ):
 
     base_url = "https://api.polygon.io/v3/reference/tickers"
 
