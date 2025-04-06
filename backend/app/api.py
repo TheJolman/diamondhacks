@@ -29,7 +29,7 @@ async def read_root(ticker: str = "IBM"):
 @app.get("/compare", tags=["comparison"])
 async def compare_stocks(ticker: str = "IBM"):
     result = await s.two_gets(ticker)
-    if result and result["april_2nd_data"] and result["yesterday_data"]:
+    if result and result["april_2nd_price"] and result["yesterday_price"]:
         return result
     else:
         return {"error": "Error retrieving comparison data"}

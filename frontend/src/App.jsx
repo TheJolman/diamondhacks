@@ -7,9 +7,10 @@ function App() {
 
   const [comparisonData, setComparisonData] = useState(null)
   const [loading, setLoading] = useState(true)
+  const ticker = "AAPL"
 
   useEffect(() => {
-    fetch('http://localhost:8000/compare?ticker=AAPL')
+    fetch(`http://localhost:8000/compare?ticker=${ticker}`)
       .then(response => response.json())
       .then(data => {
         setComparisonData(data)
@@ -36,7 +37,7 @@ function App() {
         </Routes>
       </div>
 
-      <h2>Stock Comparison</h2>
+      <h2>Stock Comparison for {ticker} from April 2nd to yesterday</h2>
       {comparisonData && (
         <pre>
           <code>

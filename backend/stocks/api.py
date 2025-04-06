@@ -47,11 +47,13 @@ async def two_gets(stocksTicker: str):
     april_2nd_result = await april_2nd_task
     yesterday_result = await yesterday_task
 
-    return {
-        "april_2nd_data": april_2nd_result,
-        "yesterday_data": yesterday_result,
-        "comparison": {
-            "ticker": stocksTicker,
+    if april_2nd_result and yesterday_result:
+        april_2nd_avg = (april_2nd_result["high"] + april_2nd_result["low"]) / 2
+        yesterday_avg = (yesterday_result["high"] + yesterday_result["low"]) / 2
+        return {
+            "april_2nd_price": april_2nd_avg,
+            "yesterday_price": yesterday_avg,
             "date_comparison": [april_2nd_str, yesterday_str]
         }
-    }
+    else:
+        return None
