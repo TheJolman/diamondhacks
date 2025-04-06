@@ -4,6 +4,7 @@ import os
 import time
 from datetime import date, timedelta
 import asyncio
+import stocks as s
 
 dotenv.load_dotenv()
 POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY")
@@ -32,16 +33,16 @@ async def grab_stock_data(stocksTicker: str, date: str):
 async def get_stock_data(stocksTicker: str, date: str):
 
     if date == (april_2nd_str):
-        cache = get_april_2nd_cache(stocksTicker)
+        cache = s.get_april_2nd_cache(stocksTicker)
         if cache == null:
             cache = grab_stock_data(stocksTicker, date)
-            set_april_2nd_cache(stocksTicker, cache)
+            s.set_april_2nd_cache(stocksTicker, cache)
         return cache
     else:
-        cache = get_stock_data_cache(stocksTicker, date)
+        cache = s.get_stock_data_cache(stocksTicker, date)
         if cache == null:
             cache = grab_stock_data(stocksTicker, date)
-            set_stock_data_cache(stocksTicker, date, cache)
+            s.set_stock_data_cache(stocksTicker, date, cache)
         return cache
         
 
