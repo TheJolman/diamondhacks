@@ -25,8 +25,8 @@ def set_april_2nd_cache(ticker, data):
         cache.write(data)
 def get_april_2nd_cache(ticker):
     cache_name = f"Cache_{ticker}_Tariff_Day"
-        if os.path.exists(cache_name):
-            return json.load(cache_name)
-        else:
-            return null
+    if os.path.exists(cache_name):
+        return json.load(cache_name)
+    else:
+        return null
         
