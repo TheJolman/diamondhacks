@@ -20,4 +20,8 @@ app.add_middleware(
 
 @app.get("/", tags=["root"])
 async def read_root():
-    return s.get_stock_data()
+    stock_data = s.get_stock_data(ticker="IBM")
+    if stock_data:
+        return stock_data
+    else:
+        return "Error getting stock data"
