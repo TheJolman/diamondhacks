@@ -5,15 +5,15 @@ This submission for Diamondhacks lets the user compare the price of a stock betw
 of the stock on April 2nd, 2025, the price of it on the current day, and the % difference between the two prices.
 
 ## Tech Stack
-Frontend: React with Vite
-Backend: Python, FastAPI
-API: polygon.io
+- Frontend: React with Vite
+- Backend: Python, FastAPI
+- API: polygon.io
 
 ## Contributors
 - Joshua Holman - California State University, Fullerton
 - Adrian Vazquez - California State University, Fullerton
 - Sidney Modigh - Mira Costa College
-- Ella - University of California, San Diego
+- Ella Yao - University of California, San Diego
 
 ## Steps to run locally 
 1. Clone repository to local device.
