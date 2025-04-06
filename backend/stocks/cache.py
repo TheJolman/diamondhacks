@@ -10,7 +10,7 @@ def get_stock_data_cache(ticker, date):
         age = time.time()-os.path.getmtime(cache_name)
         if age>DURATION:
             return None
-        with open(cache_name) as cache
+        with open(cache_name) as cache:
             out = json.load(cache)
         return out
     else:
