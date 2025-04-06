@@ -32,4 +32,4 @@ async def compare_stocks(ticker: str = "IBM"):
     if result and result["april_2nd_price"] and result["yesterday_price"]:
         return result
     else:
-        return {"error": "Error retrieving comparison data"}
+        return {"error": "could not retrieve comparison data"}
