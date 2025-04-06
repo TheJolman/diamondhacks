@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+import stocks.api as s
+
 app = FastAPI()
 
 origins = [
-    "https://localhost:5173"
-        "localhost:5173"
+    "http://localhost:5173",
+    "localhost:5173"
 ]
 
 app.add_middleware(
@@ -17,5 +19,5 @@ app.add_middleware(
 )
 
 @app.get("/", tags=["root"])
-async def read_root() -> dict:
-    return {"message": "hi there"}
+async def read_root():
+    return s.get_stock_data()
