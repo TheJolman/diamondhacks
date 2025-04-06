@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context:
+      dockerfile: Dockerfile
+
+    ports:
+      - "8000:8000"
+    volums:
+      - ./backend:/app/backend
+    environment:
+      - ENVIRONMENT=production
+      - PORT=8000
