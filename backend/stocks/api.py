@@ -8,32 +8,20 @@ import asyncio
 dotenv.load_dotenv()
 POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY")
 
-async def get_stock_data(ticker: str | None = None,
-                   ticker_type: str | None = None,
-                   market: str = "stocks",
-                   date: str | None = None,
-                   exchange: str | None = None
-                   ):
+april_2nd_str = datetime.date(2025, 4, 2).strftime("%Y-%m-%d")
+today_str = datetime.date.today().strftime("%Y-%m-%d")
 
-    base_url = "https://api.polygon.io/v3/reference/tickers"
+async def get_stock_data(stocksTicker: str, date: str | None = None):
+
+    if not date:
+        date = today_str
+
+    base_url = f"https://api.polygon.io/v1/open-close/{stocksTicker}/{date}"
 
     params = {
-        "market": market,
-        "active": "true",
-        "order": "asc",
-        "limit": 100,
-        "sort": "ticker",
+        "adjusted": True,
         "apiKey": POLYGON_API_KEY
     }
-
-    if ticker:
-        params["ticker"] = ticker
-    if ticker_type:
-        params["type"] = ticker_type
-    if date:
-        params["date"] = date
-    if exchange:
-        params["exchange"] = exchange
 
     try:
         r = requests.get(base_url, params=params)
@@ -50,31 +38,23 @@ async def get_stock_data(ticker: str | None = None,
         print(f"Raw response text: {r.text}")
         return None
 
+async def two_gets(stocksTicker: str):
 
-april_2nd_str = datetime.date(2024, 4, 2).strftime("%Y-%m-%d")
-today_str = datetime.date.today().strftime("%Y-%m-%d")
-
-async def two_gets(ticker: str | None = None,
-                   ticker_type: str | None = None,
-                   market: str = "stocks",
-                   exchange: str | None = None):
-
-
-    apr2_task = asyncio.create_task(
-        get_stock_data(ticker, ticker_type, market, april_2nd_str, exchange)
+    april_2nd_task = asyncio.create_task(
+        get_stock_data(stocksTicker, april_2nd_str)
     )
     today_task = asyncio.create_task(
-        get_stock_data(ticker, ticker_type, market, today_str, exchange)
+        get_stock_data(stocksTicker, today_str)
     )
 
-    apr2_result = await get_stock_apr2
-    today_result = await get_stock_now
+    april_2nd_result = await april_2nd_task
+    today_result = await today_task
 
     return {
-        "april_2nd_data": apr2_result,
+        "april_2nd_data": april_2nd_result,
         "today_data": today_result,
         "comparison": {
-            "ticker": ticker,
+            "ticker": stocksTicker,
             "date_comparison": [april_2nd_str, today_str]
         }
     }
