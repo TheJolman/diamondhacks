@@ -47,7 +47,7 @@ function App() {
 
   return (
     <>
-      <h1>Lorem Ipsum</h1>
+      <h1>How much did you lose?</h1>
       <div>
         <form onSubmit={handleSubmit}>
           <input
@@ -66,12 +66,12 @@ function App() {
           <h2>Stock Comparison for {ticker} from April 2nd to yesterday</h2>
           <div className="price-card">
             <h3>April 2nd Price</h3>
-            <p className="price">${comparisonData.april_2nd_price}</p>
+            <p className="price">${comparisonData.april_2nd_price.toFixed(2)}</p>
           </div>
 
           <div className="price-card">
             <h3>Current Price</h3>
-            <p className="price">${comparisonData.yesterday_price}</p>
+            <p className="price">${comparisonData.yesterday_price.toFixed(2)}</p>
           </div>
 
           <div className="price-change">
