@@ -20,7 +20,7 @@ app.add_middleware(
 
 @app.get("/", tags=["root"])
 async def read_root(ticker: str = "IBM"):
-    stock_data = await s.get_stock_data(ticker)
+    stock_data = await s.get_stock_data(ticker, "2025-04-01")
     if stock_data:
         return stock_data
     else:
@@ -29,7 +29,7 @@ async def read_root(ticker: str = "IBM"):
 @app.get("/compare", tags=["comparison"])
 async def compare_stocks(ticker: str = "IBM"):
     result = await s.two_gets(ticker)
-    if result and result["april_2nd_data"] and result["today_data"]:
+    if result and result["april_2nd_data"] and result["yesterday_data"]:
         return result
     else:
         return {"error": "Error retrieving comparison data"}

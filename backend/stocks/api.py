@@ -2,24 +2,18 @@ import requests
 import dotenv
 import os
 import time
-import datetime
+from datetime import date, timedelta
 import asyncio
 
 dotenv.load_dotenv()
 POLYGON_API_KEY = os.environ.get("POLYGON_API_KEY")
 
-april_2nd_str = datetime.date(2025, 4, 2).strftime("%Y-%m-%d")
-today_str = datetime.date.today().strftime("%Y-%m-%d")
-
-async def get_stock_data(stocksTicker: str, date: str | None = None):
-
-    if not date:
-        date = today_str
+async def get_stock_data(stocksTicker: str, date: str):
 
     base_url = f"https://api.polygon.io/v1/open-close/{stocksTicker}/{date}"
 
     params = {
-        "adjusted": True,
+        "adjusted": "true",
         "apiKey": POLYGON_API_KEY
     }
 
@@ -38,23 +32,26 @@ async def get_stock_data(stocksTicker: str, date: str | None = None):
         print(f"Raw response text: {r.text}")
         return None
 
+april_2nd_str = date(2025, 4, 2).strftime("%Y-%m-%d")
+yesterday_str = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+
 async def two_gets(stocksTicker: str):
 
     april_2nd_task = asyncio.create_task(
         get_stock_data(stocksTicker, april_2nd_str)
     )
-    today_task = asyncio.create_task(
-        get_stock_data(stocksTicker, today_str)
+    yesterday_task = asyncio.create_task(
+        get_stock_data(stocksTicker, yesterday_str)
     )
 
     april_2nd_result = await april_2nd_task
-    today_result = await today_task
+    yesterday_result = await yesterday_task
 
     return {
         "april_2nd_data": april_2nd_result,
-        "today_data": today_result,
+        "yesterday_data": yesterday_result,
         "comparison": {
             "ticker": stocksTicker,
-            "date_comparison": [april_2nd_str, today_str]
+            "date_comparison": [april_2nd_str, yesterday_str]
         }
     }
