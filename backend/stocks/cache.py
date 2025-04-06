@@ -10,7 +10,9 @@ def get_stock_data_cache(ticker, date):
         age = time.time()-os.path.getmtime(cache_name)
         if age>DURATION:
             return None
-        return json.load(cache_name)
+        with open(cache_name) as cache
+            out = json.load(cache)
+        return out
     else:
         return None
 def set_stock_data_cache(ticker, date, data):
@@ -26,7 +28,10 @@ def set_april_2nd_cache(ticker, data):
 def get_april_2nd_cache(ticker):
     cache_name = f"Cache_{ticker}_Tariff_Day"
     if os.path.exists(cache_name):
-        return json.load(cache_name)
+        with open(cache_name) as cache:
+            out = json.load(cache)
+        return out
+        
     else:
         return None
         
