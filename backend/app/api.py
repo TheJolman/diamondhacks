@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import stocks.api as s
+import stocks as s
 
 app = FastAPI()
 
