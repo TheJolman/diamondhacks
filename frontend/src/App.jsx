@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-
+import { Routes, Route, Link} from 'react-router-dom'
+import Stocks from './pages/stocks/Stocks';
+import Home from './pages/home/Home';
 function App() {
+
   const [stockData, setStockData] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -22,6 +25,17 @@ function App() {
 
   return (
     <>
+    <div>
+        <nav>
+          <Link to="/" className='nav-link'>Home</Link>
+          <Link to="/stocks" className='nav-link'>Stocks</Link>
+        </nav>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/stocks' element={<Stocks/>}/>
+        </Routes>
+        
+      </div>
       <h2>Stock Data</h2>
       {stockData && (
         <pre>
