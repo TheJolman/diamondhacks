@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Response, status
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 import stocks as s
 
@@ -19,12 +20,6 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="static")
-
-@app.get("/", tags=["root"])
-async def serve_frontend():
-    return FileResponse("frontend/index.html")
-
 @app.get("/compare", tags=["comparison"], status_code=200)
 async def compare_stocks(ticker: str = "IBM", response: Response = None):
     result = await s.two_gets(ticker)
@@ -34,3 +29,5 @@ async def compare_stocks(ticker: str = "IBM", response: Response = None):
         if response:
             response.status_code = status.HTTP_400_BAD_REQUEST
         return {"error": "could not retrieve comparison data"}
+
+app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="static")
