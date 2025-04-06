@@ -1,5 +1,7 @@
 .direnv/
 
+*.db
+
 # pixi environments
 .pixi
 *.egg-info
