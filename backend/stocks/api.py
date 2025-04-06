@@ -33,7 +33,7 @@ async def get_stock_data(stocksTicker: str, date: str):
         return None
 
 april_2nd_str = date(2025, 4, 2).strftime("%Y-%m-%d")
-yesterday_str = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+yesterday_str = (date.today() - timedelta(days=2)).strftime("%Y-%m-%d")
 
 async def two_gets(stocksTicker: str):
 
