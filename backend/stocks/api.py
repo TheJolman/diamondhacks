@@ -34,14 +34,16 @@ async def get_stock_data(stocksTicker: str, date: str):
 
     if date == (april_2nd_str):
         cache = s.get_april_2nd_cache(stocksTicker)
-        if cache == null:
+        if cache == None:
             cache = grab_stock_data(stocksTicker, date)
+            await cache
             s.set_april_2nd_cache(stocksTicker, cache)
         return cache
     else:
         cache = s.get_stock_data_cache(stocksTicker, date)
-        if cache == null:
+        if cache == None:
             cache = grab_stock_data(stocksTicker, date)
+            await cache
             s.set_stock_data_cache(stocksTicker, date, cache)
         return cache
         
