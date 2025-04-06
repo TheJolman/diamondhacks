@@ -5,25 +5,12 @@ import Stocks from './pages/stocks/Stocks';
 import Home from './pages/home/Home';
 function App() {
 
-  const [stockData, setStockData] = useState(null)
   const [comparisonData, setComparisonData] = useState(null)
   const [loading, setLoading] = useState(true)
+  const ticker = "AAPL"
 
   useEffect(() => {
-    fetch('http://localhost:8000')
-      .then(response => response.json())
-      .then(data => {
-        setStockData(data)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error)
-        setLoading(false)
-      })
-  }, [])
-
-  useEffect(() => {
-    fetch('http://localhost:8000/compare?ticker=AAPL')
+    fetch(`http://localhost:8000/compare?ticker=${ticker}`)
       .then(response => response.json())
       .then(data => {
         setComparisonData(data)
@@ -50,17 +37,7 @@ function App() {
         </Routes>
       </div>
 
-      {/*
-      <h2>Stock Data</h2>
-      {stockData && (
-        <pre>
-          <code>
-            {JSON.stringify(stockData, null, 2)}
-          </code>
-        </pre>
-      )}
-      */}
-      <h2>Stock Comparison</h2>
+      <h2>Stock Comparison for {ticker} from April 2nd to yesterday</h2>
       {comparisonData && (
         <pre>
           <code>
@@ -68,7 +45,7 @@ function App() {
           </code>
         </pre>
       )}
-      {!loading && !stockData && (
+      {!loading && !comparisonData && (
         <div>No stock data available or failed to load</div>
       )}
     </>
