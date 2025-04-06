@@ -10,10 +10,10 @@ Backend: Python, FastAPI
 API: polygon.io
 
 ## Contributors
-Joshua Holman - California State University, Fullerton
-Adrian Vazquez - California State University, Fullerton
-Sidney Modigh - Mira Costa College
-Ella - University of California, San Diego
+- Joshua Holman - California State University, Fullerton
+- Adrian Vazquez - California State University, Fullerton
+- Sidney Modigh - Mira Costa College
+- Ella - University of California, San Diego
 
 ## Steps to run locally 
 1. Clone repository to local device.
